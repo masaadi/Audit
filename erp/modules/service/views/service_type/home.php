@@ -1,0 +1,64 @@
+<table id="examplee" class="table table-striped table-bordered table-responsive" style="width:100%">
+  <thead>
+    <tr>
+      <th style="width: 15%">Sl.</th>
+      <th style="width: 25%">Service Type Name</th>
+			<th style="width: 25%">Status</th>
+      <th style="width: 15%">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+		<?php if (!empty($wings)):
+      $count = $loop_start + 1;
+      foreach ($wings as $data):
+				$language = $this->session->userdata("lang_file");
+		?>
+      <tr>
+				      <td><?php echo $count;?></td>
+              <td><?php echo $data['service_type'];?></td> 
+              <td><?php if($data['status'] == '1'){echo "Active";}else{echo "Inactive";}?></td>
+              <td>
+                       <button type="button" class="btn btn-sm btn-warning" title="<?php echo $this->lang->line('edit'); ?>"
+                          onclick="edit_master(<?php echo $data['id'] ?>,<?php echo $count1;?>)"  data-backdrop="static"
+                          data-keyboard="false"><?php echo $this->lang->line('edit'); ?></button>
+                          <?php if($data['status']==1): ?>
+                              <button type="button" class="btn btn-sm btn-danger mt-1" title="Inactive"
+                                onclick="delete_master(<?php echo $data['id']; ?>,1)"  data-backdrop="static"
+                                data-keyboard="false">Inactive
+                              </button>
+                          <?php elseif($data['status']==0): ?>
+                              <button type="button" class="btn btn-sm btn-success mt-1" title="Active"
+                                onclick="delete_master(<?php echo $data['id']; ?>,0)"  data-backdrop="static"
+                                data-keyboard="false">Active
+                          <?php endif; ?>
+              
+                  </td>
+      </tr>
+		<?php 
+      $count++;
+      endforeach;
+		  else:
+    ?>
+      <tr>
+        <td colspan="8" style="text-align: center;"><b><?php echo $this->lang->line('no_data_found'); ?></b></td>
+      </tr>
+    <?php endif; ?>
+  </tbody>
+</table>
+<?php echo $this->ajax_pagination->create_links(); ?>
+<!-- table -->
+<div class="row p-3">
+  <div class="col-md-9">
+    
+  </div>
+  <div class="col-md-3">
+    <nav aria-label="Page navigation example" class="">
+      <ul class="pagination justify-content-center">
+
+        
+        <li class="page-item"></li>
+        
+      </ul>
+    </nav>
+  </div>
+</div>
